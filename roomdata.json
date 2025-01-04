@@ -1,0 +1,178 @@
+{
+    "rooms": [
+        {
+            "roomId": 100494813,
+            "roomName": "307",
+            "kindId": 100494773,
+            "kindName": "小研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494833,
+            "roomName": "312",
+            "kindId": 100494773,
+            "kindName": "小研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494845,
+            "roomName": "315",
+            "kindId": 100494773,
+            "kindName": "小研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494857,
+            "roomName": "402",
+            "kindId": 100494773,
+            "kindName": "小研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494865,
+            "roomName": "404",
+            "kindId": 100494773,
+            "kindName": "小研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494869,
+            "roomName": "405",
+            "kindId": 100494773,
+            "kindName": "小研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494877,
+            "roomName": "407",
+            "kindId": 100494773,
+            "kindName": "小研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494881,
+            "roomName": "408",
+            "kindId": 100494773,
+            "kindName": "小研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494905,
+            "roomName": "414",
+            "kindId": 100494773,
+            "kindName": "小研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494788,
+            "roomName": "301",
+            "kindId": 100517061,
+            "kindName": "中研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494801,
+            "roomName": "304",
+            "kindId": 100517061,
+            "kindName": "中研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494805,
+            "roomName": "305",
+            "kindId": 100517061,
+            "kindName": "中研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494817,
+            "roomName": "308",
+            "kindId": 100517061,
+            "kindName": "中研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494821,
+            "roomName": "309",
+            "kindId": 100517061,
+            "kindName": "中研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494825,
+            "roomName": "310",
+            "kindId": 100517061,
+            "kindName": "中研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494837,
+            "roomName": "313",
+            "kindId": 100517061,
+            "kindName": "中研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494853,
+            "roomName": "401",
+            "kindId": 100517061,
+            "kindName": "中研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494885,
+            "roomName": "409",
+            "kindId": 100517061,
+            "kindName": "中研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494889,
+            "roomName": "410",
+            "kindId": 100517061,
+            "kindName": "中研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494809,
+            "roomName": "306",
+            "kindId": 100494775,
+            "kindName": "大研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494829,
+            "roomName": "311",
+            "kindId": 100494775,
+            "kindName": "大研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494841,
+            "roomName": "314",
+            "kindId": 100494775,
+            "kindName": "大研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494861,
+            "roomName": "403",
+            "kindId": 100494775,
+            "kindName": "大研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494873,
+            "roomName": "406",
+            "kindId": 100494775,
+            "kindName": "大研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494893,
+            "roomName": "411",
+            "kindId": 100494775,
+            "kindName": "大研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494797,
+            "roomName": "303",
+            "kindId": 100494775,
+            "kindName": "大研讨室(沙河校区)"
+        },
+        {
+            "roomId": 100494849,
+            "roomName": "316",
+            "kindId": 100755252,
+            "kindName": "单人研修间(沙河校区)"
+        },
+        {
+            "roomId": 100494909,
+            "roomName": "415",
+            "kindId": 100755252,
+            "kindName": "单人研修间(沙河校区)"
+        },
+        {
+            "roomId": 100494793,
+            "roomName": "302",
+            "kindId": 100755252,
+            "kindName": "单人研修间(沙河校区)"
+        }
+    ]
+}
