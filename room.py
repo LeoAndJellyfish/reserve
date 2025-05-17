@@ -3,20 +3,25 @@ import json
 import time
 from login import login
 
-# 配置请求头
+# 全局配置
 headers = {
     "Cookie": "ic-cookie=NA",
 }
 
-# 配置 JSON 请求体
 payload = {
-    "sysKind": 1,#房间预约
-    "appAccNo": 0,#预约主账号
+    "sysKind": 1,  # 房间预约
+    "appAccNo": 0,  # 预约主账号
     "resvBeginTime": "0",
     "resvEndTime": "0",
-    "resvMember": [],#预约成员
-    "resvDev": [],#预约设备
+    "resvMember": [],  # 预约成员
+    "resvDev": [],  # 预约设备
 }
+
+def get_user_info(iccookie):
+    """获取用户信息"""
+    headers['Cookie'] = f"ic-cookie={iccookie}"
+    response = requests.get('http://10.12.162.181/ic-web/auth/userInfo', headers=headers)
+    return response.json()
 
 def find_devid_by_symbol(symbol):
     # 读取 roomdata.json 文件
@@ -31,49 +36,6 @@ def find_devid_by_symbol(symbol):
 
     # 如果没有找到匹配的房间，返回 None
     return None
-
-def fill_payload(iccookie):
-    # 发送 GET 请求获取用户数据
-    headers['Cookie'] = f"ic-cookie={iccookie}"
-    response = requests.get('http://10.12.162.181/ic-web/auth/userInfo', headers=headers)
-    userinfo = response.json()
-    payload["resvMember"] = [userinfo["data"]["accNo"]]#包含自己
-
-    while True:
-        room = input("请输入预约房间号：")
-        resvDev = find_devid_by_symbol(room)
-        if resvDev is None:
-            print("房间号不存在！")
-        else:
-            break
-    while True:
-        member = input("请输入除自己以外的预约成员学号,输入0退出：")
-        if member == '0':
-            break
-        else:
-            response = requests.get(f'http://10.12.162.181/ic-web/account/getMembers?key={member}&page=1&pageNum=10', headers=headers)
-            response = response.json()
-            payload["resvMember"].append(response['data'][0]['accNo'])
-    while True:
-        begin_time = input("请输入预约开始时间（格式：2025-01-03 13:20:00）：")
-        try:
-            time.strptime(begin_time, '%Y-%m-%d %H:%M:%S')
-            payload["resvBeginTime"] = begin_time
-            break
-        except ValueError:
-            print("时间格式错误！")
-    while True:
-        end_time = input("请输入预约结束时间（格式：2025-01-03 14:00:00）：")
-        try:
-            time.strptime(end_time, '%Y-%m-%d %H:%M:%S')
-            payload["resvEndTime"] = end_time
-            break
-        except ValueError:
-            print("时间格式错误！")
-
-    # 填充 payload
-    payload["appAccNo"] = userinfo["data"]["accNo"]
-    payload["resvDev"] = [resvDev]
 
 # 发送 POST 请求的函数
 def send_post_request():
@@ -109,13 +71,65 @@ def send_post_request():
         print(f"An error occurred: {e}")
         return 1
 
-# 登录获取 cookies
-iccookie = login()
-fill_payload(iccookie)
+def get_room_input():
+    """获取房间号输入"""
+    while True:
+        room = input("请输入预约房间号：")
+        resvDev = find_devid_by_symbol(room)
+        if resvDev is None:
+            print("房间号不存在！")
+        else:
+            return resvDev
 
-while True:
-    # 发送 POST 请求
-    if send_post_request() == 0:
-        break
-    else:
-        time.sleep(60)  # 60秒 = 1分钟
+def get_member_input():
+    """获取成员输入"""
+    members = []
+    while True:
+        member = input("请输入除自己以外的预约成员学号(输入0退出)：")
+        if member == '0':
+            break
+        else:
+            response = requests.get(f'http://10.12.162.181/ic-web/account/getMembers?key={member}&page=1&pageNum=10', headers=headers)
+            response = response.json()
+            members.append(response['data'][0]['accNo'])
+    return members
+
+def get_time_input(time_type):
+    """获取时间输入"""
+    while True:
+        time_str = input(f"请输入预约{time_type}时间（格式：2025-01-03 13:20:00）：")
+        try:
+            time.strptime(time_str, '%Y-%m-%d %H:%M:%S')
+            return time_str
+        except ValueError:
+            print("时间格式错误！")
+
+def main():
+    """主程序入口"""
+    iccookie = login()
+    userinfo = get_user_info(iccookie)
+    
+    # 获取用户输入
+    resvDev = get_room_input()
+    members = get_member_input()
+    begin_time = get_time_input("开始")
+    end_time = get_time_input("结束")
+    
+    # 填充payload
+    payload.update({
+        "appAccNo": userinfo["data"]["accNo"],
+        "resvMember": [userinfo["data"]["accNo"]] + members,
+        "resvDev": [resvDev],
+        "resvBeginTime": begin_time,
+        "resvEndTime": end_time
+    })
+    
+    # 发送请求
+    while True:
+        if send_post_request() == 0:
+            break
+        else:
+            time.sleep(60)
+
+if __name__ == "__main__":
+    main()
