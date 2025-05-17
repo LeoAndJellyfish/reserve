@@ -1,4 +1,10 @@
 from selenium import webdriver
+from selenium.webdriver import Chrome, Firefox, Edge, Safari
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.safari.service import Service as SafariService
+
 import time
 import os
 import requests
@@ -6,6 +12,8 @@ import json
 
 # 定义持久化存储文件的路径
 COOKIE_FILE_PATH = 'ic_cookie.json'
+EXCUTABLE_PATH = r'.\driver\msedgedriver.exe'
+Browser_Type = 'edge'
 
 def login():
     # 检查是否有持久化的 ic-cookie 和 pid
@@ -31,9 +39,14 @@ def login():
                 os.remove(COOKIE_FILE_PATH)
 
     # 使用 selenium 获取 cookies
-    driver = webdriver.Edge()  # 或指定合适的浏览器驱动
+    try:
+        driver = get_driver(Browser_Type)
+        
+    except Exception as e:
+        print(f"无法启动浏览器驱动: {e}")
+        return None
     driver.get('http://10.12.162.181/')  # 打开目标网站
-
+    
     # 循环获取 cookies 直到得到为止
     cookies = []
     flag = False
@@ -75,3 +88,18 @@ def login():
         return login()
 
     return iccookie
+
+
+def get_driver(browser_type='edge'):
+    if browser_type.lower() == 'chrome':
+        service = ChromeService(executable_path=EXCUTABLE_PATH)
+        return Chrome(service=service)
+    elif browser_type.lower() == 'firefox':
+        service = FirefoxService(executable_path=EXCUTABLE_PATH)
+        return Firefox(service=service)
+    elif browser_type.lower() == 'safari':
+        service = SafariService(executable_path=EXCUTABLE_PATH)
+        return Safari(service=service)
+    else:  # default to edge
+        service = EdgeService(executable_path= EXCUTABLE_PATH)
+        return Edge(service=service)
